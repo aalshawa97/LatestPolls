@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% block title %}{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'styles.css' %}">
+  <style>
+    body {
+      background-color: #3EB489;
+    }
+    .poll-results {
+      background-color: #ff6600;
+      border: 2px solid #000000;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 50px;
+    }
+
+    .poll-question {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #ffa500;
+    }
+
+    .poll-choice {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #008000;
+    }
+
+    .poll-votes {
+      color: #ffa500;
+      font-weight: bold;
+    }
+
+    .poll-vote-again {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #ffa500;
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="poll-results">
+    <h1 class="poll-question">{{ question.question }}</h1>
+    <ul class="poll-choices">
+      {% for choice in question.choice_set.all %}
+        <li class="poll-choice">{{ choice.choice_text }} <span class="poll-votes">{{ choice.votes }} vote{{ choice.votes|pluralize }}</span></li>
+      {% endfor %}
+    </ul>
+    <a href="{% url 'create' %}" class="poll-vote-again">Vote again?</a>
+  </div>
+</body>
+</html>

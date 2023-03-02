@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block main %}
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Available Polls</h3>
+            </div>
+                
+            <ul class="list-group">
+                {% for poll in polls %}
+                <li class="list-group-item">
+                    <strong>{{ poll.question }}</strong>
+                    <span class="pull-right">
+                        <a href="{% url 'vote' poll.id %}" class="btn btn-info btn-xs">Vote</a> &nbsp;
+                        <a href="{% url 'results' poll.id %}" class="btn btn-default btn-xs">View Results</a> &nbsp;
+                    </span>
+                </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+  <a href="mailto:abdullahalshawa@gmail.com" class="btn" style="background-color: #ff6600; color: white;">Questions?</a>
+  <a href="https://www.djangoproject.com" class="btn">Django Homepage</a>
+  <a href="https://www.django-rest-framework.org/#:~:text=Django%20REST%20framework%20is%20a,packages%20for%20OAuth1a%20and%20OAuth2." class="btn">About</a>
+  <h1>Welcome</h1>
+  <p>This is an example of HTML with Django.</p>
+  <p>Django is a web framework that makes it easy to build web applications quickly and with peace of mind. With its built-in security features, you can deploy your projects with confidence. And, Django is highly scalable, so you can take your applications to the next level.</p>
+  <p>For example, when you create a project named mysite, the following files are created:</p>
+  <p>These files are:</p>
+
+  <p>The outer mysite/ root directory is a container for your project. Its name doesn’t matter to Django; you can rename it to anything you like.</p>
+  <p>manage.py: A command-line utility that lets you interact with this Django project in various ways. You can read all the details about manage.py in django-admin and manage.py.</p>
+  <p>mysite/__init__.py: An empty file that tells Python that this directory should be considered a Python package. If you’re a Python beginner, read more about packages in the official Python docs.</p>
+</div>
+
+{% endblock %}
