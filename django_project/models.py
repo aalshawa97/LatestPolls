@@ -1,6 +1,6 @@
 import os
 import django
-
+import datetime
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "django_project.settings")
 # django.setup()
 
@@ -50,5 +50,5 @@ class Answer(models.Model):
 #    choice_text = models.CharField(max_length=200)
 #    votes = models.IntegerField(default=0)
 
-#    def __str__(self):
-#        return self.choice_text
+ #   def __str__(self):
+ #       return self.choice_text

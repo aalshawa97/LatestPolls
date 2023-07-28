@@ -1,12 +1,14 @@
 import os
 import django
 
+from django_project import models
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_project.settings')
 django.setup()
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django_project.models import Question
+from django_project.models import Question, Answer
 from django.shortcuts import get_object_or_404, render
 from django_project.forms import CreatePollForm
 
@@ -49,10 +51,33 @@ def create_question(request):
 
 
 def votePageView(request, poll_id):
+    question = Question.objects.get(pk=poll_id)
+    if Answer.question == question:
+        answer = Answer.answer_text# where ansID = poll_id
+    try:
+        selected_choice = answer
+    except(KeyError, Answer.DoesNotExist):
+        print('Error')
+        #Handle invalid choices
+        return render(request, 'polls/detail.html')
+    else:
+        selected_choice.vote += 1
+        selected_choice.save()
     context = {}
-    return render(request, 'vote.html', context)
+    return redirect('results', question_id = poll_id)
+    #return render(request, 'vote.html', context)
 
 def resultsPageView(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     context = {'question': question}
+    #Fix
+    #total_votes = choices
+    # Retrieve the choices associated with the question
+    #choice_text = models.CharField(max_length = 100)
+    #context = {'question': question, 'choices': choices}
+    # Retrieve the total votes for the question
+    #total_votes = question.total()
+
+    #context = {'question': question, 'total_votes': total_votes}
     return render(request, 'results.html', context)
+    #return render(request, 'results.html', context)
